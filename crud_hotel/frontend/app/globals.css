@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "tailwind-scrollbar";
 
 :root {
   --background: #ffffff;
@@ -27,7 +28,7 @@ body {
 
 @layer components {
   .navbar-button {
-    @apply px-10 py-2 rounded-full bg-[#3636364d]
+    @apply px-10 py-2 rounded-full bg-[#7777774d]
            transition duration-300 hover:bg-[#2020204d]
   }
 }

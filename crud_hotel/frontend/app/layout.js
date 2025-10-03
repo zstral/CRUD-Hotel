@@ -23,10 +23,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.className} antialiased`}
       >
-        <div className="bg-[url('/assets/images/background.jpeg')] h-screen bg-cover bg-center blur-[2px]" />
         <Navbar />
         {children}
-        
       </body>
     </html>
   );
