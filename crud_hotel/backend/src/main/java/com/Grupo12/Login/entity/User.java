@@ -28,8 +28,6 @@ public class User {
     private Long id;
 
     private String email;
-    // Evite que se muestre en respuestas JSON
-    @JsonIgnore
     private String contrasenna;
     private Rol rol;
 
