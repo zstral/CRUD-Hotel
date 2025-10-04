@@ -52,6 +52,7 @@ public class AuthService {
 
         // Se encripta la contraseña vvvvvvv antes de guardarse
         user.setContrasenna(contraEncoder.encode(user.getContrasenna()));
+        user.setRol(Rol.user);
         // Devuelve el usuario creado
         return userRepository.save(user);
 
