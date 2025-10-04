@@ -1,6 +1,6 @@
 package com.Grupo12.Login.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 // Import para mapear esta clase a la tabla de BBDD
 import jakarta.persistence.*;
@@ -28,8 +28,8 @@ public class User {
     private Long id;
 
     private String email;
-    // Evite que se muestre en respuestas JSON
-    @JsonIgnore
+    
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String contrasenna;
     private Rol rol;
 

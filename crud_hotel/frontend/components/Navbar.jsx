@@ -24,18 +24,18 @@ export default function Navbar() {
               <Link href="/">
                 <li className="navbar-button">Inicio</li>
               </Link>
-              <Link href="/reservas">
+              <Link href="/booking">
                 <li className="navbar-button">Reservar</li>
               </Link>
-              <Link href="/contacto">
+              <Link href="/contact">
                 <li className="navbar-button">Contacto</li>
               </Link>
-              <Link href="/centro-ayuda">
+              <Link href="/help-center">
                 <li className="navbar-button">Centro de ayuda</li>
               </Link>
             </ul>
           </nav>
-          <Link href="/perfil"
+          <Link href="/auth/login"
             className="p-[5px] bg-[#7777774d] backdrop-blur-sm rounded-full text-white
                       transition duration-300 hover:bg-[#2020204d]"
           >

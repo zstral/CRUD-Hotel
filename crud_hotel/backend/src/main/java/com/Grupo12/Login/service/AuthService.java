@@ -1,6 +1,7 @@
 // Este código es para la lógica de autenticación
 package com.Grupo12.Login.service;
 
+import com.Grupo12.Login.entity.Rol;
 // Import clase usuario
 import com.Grupo12.Login.entity.User;
 // Import clase del repositorio
@@ -52,6 +53,10 @@ public class AuthService {
 
         // Se encripta la contraseña vvvvvvv antes de guardarse
         user.setContrasenna(contraEncoder.encode(user.getContrasenna()));
+        
+        // Asigna el rol de "user" por defecto
+        user.setRol(Rol.user); 
+
         // Devuelve el usuario creado
         return userRepository.save(user);
 

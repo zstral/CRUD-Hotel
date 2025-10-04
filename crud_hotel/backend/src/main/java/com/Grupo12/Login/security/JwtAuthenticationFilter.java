@@ -29,6 +29,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
+        // --- NUEVO: ignorar rutas públicas (login y register) ---
+        String path = request.getServletPath();
+        if (path.equals("/auth/login") || path.equals("/auth/register")) {
+            filterChain.doFilter(request, response);
+            return; // No validar token para estas rutas
+        }
+        // ----------------------------------------------------------
+
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             try {
@@ -47,10 +55,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             } catch (Exception e) {
                 System.out.println("Token inválido: " + e.getMessage());
+                
+                // --- NUEVO: si el token es inválido, responde con 401 ---
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return; // Salir del filtro
+                // ----------------------------------------------------------
             }
+        } else {
+            // --- NUEVO: si no hay token en rutas protegidas, 401 ---
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+            // ----------------------------------------------------------
         }
 
         filterChain.doFilter(request, response);
     }
 }
-
