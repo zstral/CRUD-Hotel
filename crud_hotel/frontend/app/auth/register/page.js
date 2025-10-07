@@ -45,6 +45,10 @@ export default function Register() {
               </div>
             </div>
 
+            <div className="text-sm text-white text-center">
+              <p>¿Ya tienes una cuenta? <a href="/auth/login" className="text-blue-500">Inicia sesión</a></p>
+            </div>
+
             <button
               className="bg-[#1B3A5C] text-white p-2 rounded-lg cursor-pointer"
               type="submit"

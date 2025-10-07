@@ -1,10 +1,33 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
 
 export default function Login() {
-  const { email, setEmail, contrasenna, setContrasenna, handleLogin, user, handleLogout } =
-    useAuth();
+  const router = useRouter();
+  const { email, setEmail, contrasenna, setContrasenna, handleLogin } = useAuth();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Revisar token en localStorage antes de renderizar
+    const token = localStorage.getItem("token");
+    if (token) {
+      // Redirige directamente al perfil
+      router.replace("/profile");
+    } else {
+      // Si no hay token, muestra el formulario
+      setLoading(false);
+    }
+  }, [router]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen text-white text-xl">
+        Cargando...
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
@@ -23,7 +46,6 @@ export default function Login() {
                 <input
                   className="bg-[#ffffff9f] p-2 rounded-lg text-[#272727]"
                   type="email"
-                  name="email"
                   placeholder="Email"
                   required
                   value={email}
@@ -37,13 +59,16 @@ export default function Login() {
                 <input
                   className="bg-[#ffffff9f] p-2 rounded-lg text-[#272727]"
                   type="password"
-                  name="password"
                   placeholder="********"
                   required
                   value={contrasenna}
                   onChange={(e) => setContrasenna(e.target.value)}
                 />
               </div>
+            </div>
+
+            <div className="text-sm text-white text-center">
+              <p>¿No tienes una cuenta? <a href="/auth/register" className="text-blue-500">Regístrate</a></p>
             </div>
 
             <button
@@ -53,19 +78,6 @@ export default function Login() {
               Iniciar sesión
             </button>
           </form>
-
-          {user && (
-            <div className="mt-4 p-2 bg-[#ffffff31] rounded">
-              <p>Email: {user.email}</p>
-              <p>Rol: {user.rol}</p>
-              <button
-                className="bg-red-600 text-white p-1 rounded mt-2"
-                onClick={handleLogout}
-              >
-                Cerrar sesión
-              </button>
-            </div>
-          )}
         </div>
       </main>
     </div>

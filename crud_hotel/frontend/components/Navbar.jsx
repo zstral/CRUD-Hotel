@@ -1,6 +1,8 @@
+'use client'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Saira_Extra_Condensed } from 'next/font/google'
-import { User } from 'lucide-react'
+import { User, Shield } from 'lucide-react'
 import ProgressiveBlur from './ProgressiveBlur'
 
 const sairaExtraCondensed = Saira_Extra_Condensed({
@@ -9,6 +11,23 @@ const sairaExtraCondensed = Saira_Extra_Condensed({
 })
 
 export default function Navbar() {
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        if (payload.rol === "admin") {
+          setIsAdmin(true);
+        }
+      } catch (err) {
+        console.error("Error al decodificar token:", err);
+      }
+    }
+  }, []);
+
   return (
 <div className="fixed top-0 left-0 w-full h-50 z-20">
       <ProgressiveBlur height="100%" />
@@ -33,6 +52,14 @@ export default function Navbar() {
               <Link href="/help-center">
                 <li className="navbar-button">Centro de ayuda</li>
               </Link>
+              {isAdmin && (
+                <Link href="/admin">
+                  <li className="navbar-button flex items-center gap-1">
+                    <Shield size={16} />
+                    Administración
+                  </li>
+                </Link>
+              )}
             </ul>
           </nav>
           <Link href="/auth/login"

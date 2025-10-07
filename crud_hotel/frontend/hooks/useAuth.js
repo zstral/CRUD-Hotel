@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const API_URL = "http://localhost:8080/auth";
 
@@ -8,6 +9,7 @@ export default function useAuth() {
   const [contrasenna, setContrasenna] = useState("");
   const [rol, setRol] = useState("user");
   const [user, setUser] = useState(null);
+  const router = useRouter();
 
   // Login
   const handleLogin = async (e) => {
@@ -32,6 +34,7 @@ export default function useAuth() {
       setUser({ email: payload.sub, rol: payload.rol });
 
       alert("Login exitoso!");
+      router.push("/profile");
     } catch (err) {
       console.error(err);
       alert("Error en login: credenciales incorrectas o servidor no disponible");
@@ -68,6 +71,7 @@ export default function useAuth() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setUser(null);
+    router.push("/auth/login");
   };
 
   return {
